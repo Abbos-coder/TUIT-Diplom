@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <v-toolbar dense elevation="1" height="35">
+    <v-toolbar elevation="1" height="35">
       <v-row
         class="navbar container mx-auto px-n2"
         align="center"
@@ -26,10 +26,10 @@
       </v-row>
     </v-toolbar>
 
-    <div class="container mx-auto mt-md-n5 mt-sm-n2 navbar__controls">
+    <div class="container mx-auto mt-md-n2 mt-sm-n2 navbar__controls">
       <div>
         <nuxt-link to="/">
-          <img src="@/assets/img/logo.jpg" alt="logo" />
+          <img src="@/assets/img/logo.jpg" alt="logo" class="logo" />
         </nuxt-link>
       </div>
       <div class="navbar__search mt-2">
@@ -42,50 +42,29 @@
           class="mt-4"
         ></v-text-field>
       </div>
-      <v-btn color="primary" class="ml-auto text-capitalize">
+      <v-btn color="primary" class="text-capitalize">
         <v-icon>mdi-cart</v-icon>
         <span>Your cart: 0</span>
       </v-btn>
     </div>
-
-    <!-- <div>
-      <ul class="container">
-        <v-toolbar dark app>
-          <v-toolbar-items class="hidden-sm-and-down">
-            <v-btn v-for="item in menu" :key="item.icon" :to="item.link" flat>{{
-              item.title
-            }}</v-btn>
-          </v-toolbar-items>
-          <v-menu class="hidden-md-and-up">
-            <v-toolbar-side-icon></v-toolbar-side-icon>
-            <v-list>
-              <v-list-tile v-for="item in menu" :key="item.icon">
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-        </v-toolbar>
-      </ul>
-    </div> -->
+    <div class="navbar__menu my-5">
+      <nuxt-link to="/" class="blue--text text--darken-3 text-bold">
+        Category
+      </nuxt-link>
+      <nuxt-link to="/about" class="blue--text text--darken-3 text-bold">
+        About us
+      </nuxt-link>
+      <nuxt-link to="/contact" class="blue--text text--darken-3 text-bold">
+        Contact
+      </nuxt-link>
+    </div>
   </nav>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    menu: [
-      { icon: "home", title: "Link A" },
-      { icon: "info", title: "Link B" },
-      { icon: "warning", title: "Link C" },
-    ],
-  }),
-  methods: {
-    menuItems() {
-      return this.menu;
-    },
-  },
+  data: () => ({}),
+  methods: {},
   mounted() {},
 };
 </script>
@@ -94,10 +73,17 @@ export default {
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+.logo {
+  height: 75px;
+}
 .v-toolbar {
   @media (max-width: 414px) {
     height: 60px !important;
     padding-top: 10px;
+  }
+  @media (max-width: 450px) {
+    height: 60px !important;
+    margin-top: 20px;
   }
   .lang {
     margin-top: 7px;
@@ -120,6 +106,39 @@ body {
 .navbar__controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
+  @media (max-width: 640px) {
+    flex-direction: column;
+    .v-btn {
+      margin-left: 0 !important;
+    }
+  }
+}
+.navbar__search {
+  @media (max-width: 900px) {
+    width: min(100%, 375px);
+  }
+  @media (max-width: 775px) {
+    width: min(100%, 250px);
+  }
+  @media (max-width: 640px) {
+    width: min(100%, 375px);
+    margin-top: -25px !important;
+  }
+  width: min(100%, 500px);
+  margin: 0 auto;
+}
+.navbar__menu {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  border-bottom: 1px solid #3333;
+  padding-bottom: 15px;
+  a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+  }
 }
 </style>
