@@ -14,7 +14,8 @@
 			margin-top: 20px;
 		}
 	}
-}
-.v-sheet {
-	position: relative;
+	.v-sheet {
+		position: relative;
+		z-index: 1;
+	}
 }

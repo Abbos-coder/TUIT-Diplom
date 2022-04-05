@@ -1,5 +1,5 @@
 export const state = () => ({
-   sidebar: null,
+   sidebar: false,
 });
 
 export const strict = false;

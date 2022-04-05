@@ -115,4 +115,7 @@ export default {
 html {
    font-family: "Poppins", sans-serif;
 }
+.v-app-bar {
+   z-index: 10;
+}
 </style>
