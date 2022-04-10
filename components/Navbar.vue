@@ -1,6 +1,13 @@
 <template>
   <nav class="navbar">
-    <v-app-bar elevation="1" height="35" :clipped-left="clipped" app>
+    <v-app-bar
+      id="app-bar"
+      elevation="1"
+      height="35"
+      :clipped-left="clipped"
+      app
+      fixed
+    >
       <v-row
         class="navbar container mx-auto px-n2"
         align="center"
@@ -44,7 +51,7 @@
           class="mt-4"
         ></v-text-field>
       </div>
-      <v-btn color="primary" class="text-capitalize">
+      <v-btn to="/basket" color="primary" class="text-capitalize">
         <v-icon>mdi-cart</v-icon>
         <span>Your cart: 0</span>
       </v-btn>
@@ -83,7 +90,7 @@ export default {
 <style lang="scss" scoped>
 #app-bar {
   position: fixed;
-  z-index: 8 !important;
+  z-index: 10500 !important;
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
