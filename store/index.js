@@ -1,4 +1,5 @@
 export const state = () => ({
+  logged_in: false,
   sidebar: false,
   basket: [],
 });
