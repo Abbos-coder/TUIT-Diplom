@@ -26,7 +26,9 @@
         </div>
         <v-spacer class="d-none d-sm-block"></v-spacer>
         <div class="navbar__block lang d-flex ml-1">
-          <p class="text-body-2 mb-0"><span>UZ</span> | <span>RU</span></p>
+          <p class="text-body-2 mt-0 mb-0 lang">
+            <span>UZ</span> | <span>RU</span>
+          </p>
           <div class="text-caption ml-4">
             <strong>Welcome, </strong>
             <nuxt-link to="/auth" v-if="$store.state.logged_in"
@@ -65,7 +67,7 @@
       </div>
       <v-btn to="/basket" color="primary" class="text-capitalize">
         <v-icon>mdi-cart</v-icon>
-        <span>Your cart: 0</span>
+        <span>Your cart: {{ $store.state.basket.length }}</span>
       </v-btn>
     </div>
     <div class="navbar__menu container mb-1">
@@ -73,7 +75,7 @@
         <v-icon color="primary">mdi-menu</v-icon>
       </div>
       <nuxt-link to="/" class="blue--text text--darken-3 text-bold">
-        Category
+        All products
       </nuxt-link>
       <nuxt-link to="/about" class="blue--text text--darken-3 text-bold">
         About us
@@ -120,6 +122,12 @@ body {
 }
 .logo {
   height: 75px;
+}
+.lang {
+  span {
+    cursor: pointer;
+    font-weight: 500;
+  }
 }
 .v-toolbar {
   @media (max-width: 414px) {
