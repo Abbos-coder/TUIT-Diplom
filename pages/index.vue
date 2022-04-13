@@ -36,7 +36,12 @@
             >
               подробно
             </v-btn>
-            <v-btn color="primary" class="ml-3" small>
+            <v-btn
+              color="primary"
+              class="ml-3"
+              small
+              @click="addToBasket(product)"
+            >
               добавить
               <v-icon size="16">mdi-cart</v-icon>
             </v-btn>
@@ -121,6 +126,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    addToBasket(e) {
+      this.$store.state.basket.push(e);
+    },
   },
 };
 </script>
