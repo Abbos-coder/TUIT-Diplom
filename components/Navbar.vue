@@ -29,7 +29,19 @@
           <p class="text-body-2 mb-0"><span>UZ</span> | <span>RU</span></p>
           <div class="text-caption ml-4">
             <strong>Welcome, </strong>
-            <nuxt-link to="/auth">Sign in</nuxt-link>
+            <nuxt-link to="/auth" v-if="$store.state.logged_in"
+              >Sign in</nuxt-link
+            >
+            <nuxt-link
+              to="/upload"
+              class="user-name font-weight-medium text-body-2 ml-3"
+              v-else
+            >
+              Abbos
+              <v-icon color="black" size="22" class="ml-1"
+                >mdi-plus-circle-outline</v-icon
+              >
+            </nuxt-link>
           </div>
         </div>
       </v-row>
@@ -88,9 +100,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.user-name {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: all linear 0.1s;
+  &:hover,
+  &:hover > i.v-icon {
+    color: blue !important;
+  }
+}
+
 #app-bar {
   position: fixed;
-  z-index: 10500 !important;
+  z-index: 110 !important;
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
