@@ -1,13 +1,6 @@
 <template>
   <nav class="navbar">
-    <v-app-bar
-      id="app-bar"
-      elevation="1"
-      height="35"
-      :clipped-left="clipped"
-      app
-      fixed
-    >
+    <v-app-bar elevation="1" height="35" :clipped-left="clipped" app>
       <v-row
         class="navbar container mx-auto px-n2"
         align="center"
@@ -31,9 +24,9 @@
           </p>
           <div class="text-caption ml-4">
             <strong>Welcome, </strong>
-            <nuxt-link to="/auth" v-if="$store.state.logged_in"
-              >Sign in</nuxt-link
-            >
+            <nuxt-link to="/auth" v-if="$store.state.logged_in">
+              Sign in
+            </nuxt-link>
             <nuxt-link
               to="/upload"
               class="user-name font-weight-medium text-body-2 ml-3"
@@ -111,11 +104,6 @@ export default {
   &:hover > i.v-icon {
     color: blue !important;
   }
-}
-
-#app-bar {
-  position: fixed;
-  z-index: 110 !important;
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -197,7 +185,6 @@ body {
   }
   &__bars {
     cursor: pointer;
-    // align-self: left;
     margin-right: auto;
   }
 }

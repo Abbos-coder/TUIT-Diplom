@@ -3,7 +3,6 @@ import colors from "vuetify/es5/util/colors";
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: "%s - Diplom",
     title: "Diplom",
     htmlAttrs: {
       lang: "en",
@@ -50,7 +49,7 @@ export default {
     "@nuxtjs/toast",
   ],
   toast: {
-    position: "top-right",
+    position: "top-center",
     duration: 5000,
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
