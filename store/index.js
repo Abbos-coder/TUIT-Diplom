@@ -4,4 +4,10 @@ export const state = () => ({
   basket: [],
 });
 
+export const mutations = {
+  deleteProduct(state, product_id) {
+    state.basket.splice(product_id, 1);
+  },
+};
+
 export const strict = false;

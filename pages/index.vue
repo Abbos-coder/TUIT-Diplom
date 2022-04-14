@@ -130,6 +130,11 @@ export default {
   methods: {
     addToBasket(e) {
       this.$store.state.basket.push(e);
+      this.$toast.success("Product added !", {
+        theme: "bubble",
+        position: "top-left",
+        duration: 5000,
+      });
     },
   },
 };

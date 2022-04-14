@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <h1 class="text-center text-h4 mt-3 text-capitalize">корзина</h1>
-    <v-card elevation="2">
-      <h3 class="text-center" v-if="!products">Product not yet!</h3>
-      <v-row class="mt-4" v-for="(item, idx) in products" :key="idx" v-else>
+    <h3 class="text-center text-h6 warning--text mt-10" v-if="!products.length">
+      Продукт ешо не выбран!
+    </h3>
+    <v-card elevation="2" v-else>
+      <v-row class="mt-4" v-for="(item, idx) in products" :key="idx">
         <v-col cols="12" lg="4" xs="12" class="d-flex justify-center">
           <img :src="item.image" :alt="item.name" />
         </v-col>
@@ -20,7 +22,7 @@
             deserunt id!
           </v-card-text>
           <v-card-actions>
-            <v-btn color="error" small @click="removeProduct(item)">
+            <v-btn color="error" small @click="removeProduct(idx)">
               удалить
               <v-icon size="18">mdi-delete-empty</v-icon>
             </v-btn>
@@ -48,8 +50,7 @@ export default {
   },
   methods: {
     removeProduct(selected) {
-      this.products = this.$store.state.basket.slice(selected, 1);
-      console.log(this.$store.state.basket);
+      this.$store.commit("deleteProduct", selected);
     },
   },
   mounted() {

@@ -35,7 +35,9 @@
           <v-icon color="blue" class="mr-1">mdi-facebook</v-icon>
         </div>
         <v-row class="mt-10">
-          <v-btn color="success" small>добавить корзину</v-btn>
+          <v-btn color="success" small @click="addToBasket(info)"
+            >добавить корзину</v-btn
+          >
           <v-btn color="primary" class="ml-5" small>купить </v-btn>
         </v-row>
       </v-col>
@@ -132,6 +134,16 @@ export default {
     },
     company_rating: 4.5,
   }),
+  methods: {
+    addToBasket(e) {
+      this.$store.state.basket.push(e);
+      this.$toast.success("Product added !", {
+        theme: "bubble",
+        position: "top-left",
+        duration: 5000,
+      });
+    },
+  },
 };
 </script>
 
