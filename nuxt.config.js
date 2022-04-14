@@ -47,6 +47,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/toast",
+    "@nuxtjs/auth",
   ],
   toast: {
     position: "top-center",
@@ -55,7 +56,30 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: "/",
+    baseURL: "http://127.0.0.1:8080",
+  },
+  router: {
+    middleware: ["auth"],
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: "/auth", method: "post" },
+          logout: true,
+          user: false,
+        },
+        tokenRequired: true,
+        tokenType: "Bearer",
+      },
+    },
+    redirect: {
+      login: "/auth",
+      logout: "/",
+      callback: "/auth",
+      home: "/",
+      user: "/",
+    },
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
