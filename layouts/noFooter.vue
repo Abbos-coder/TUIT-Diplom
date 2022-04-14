@@ -21,6 +21,7 @@ export default {
 .navbar {
   position: -webkit-sticky;
   position: sticky;
+  z-index: 10;
 }
 html {
   font-family: "Poppins", sans-serif;

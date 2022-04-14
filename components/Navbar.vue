@@ -24,7 +24,7 @@
           </p>
           <div class="text-caption ml-4">
             <strong>Welcome, </strong>
-            <nuxt-link to="/auth" v-if="$store.state.logged_in">
+            <nuxt-link to="/auth" v-if="!$store.state.logged_in">
               Sign in
             </nuxt-link>
             <nuxt-link
