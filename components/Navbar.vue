@@ -33,9 +33,9 @@
               v-else
             >
               Abbos
-              <v-icon color="black" size="22" class="ml-1"
-                >mdi-plus-circle-outline</v-icon
-              >
+              <v-icon color="black" size="22" class="ml-1">
+                mdi-plus-circle-outline
+              </v-icon>
             </nuxt-link>
           </div>
         </div>

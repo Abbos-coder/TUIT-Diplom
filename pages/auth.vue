@@ -26,13 +26,13 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn to="/register" color="success" class="text-capitalize"
-            >Register</v-btn
-          >
+          <v-btn to="/register" color="success" class="text-capitalize">
+            Register
+          </v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="info" class="text-capitalize" @click="validate"
-            >Login</v-btn
-          >
+          <v-btn color="info" class="text-capitalize" @click="validate">
+            Login
+          </v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -59,14 +59,21 @@ export default {
       const auth = this.$refs.form.validate();
       if (auth) {
         try {
-          const user = this.user;
-          await this.$axios.$post("/api/auth", user, {
-            headers: {
-              "Content-Type": "application/json",
-            },
+          const resp = await this.$auth.loginWith("local", {
+            data: this.user,
           });
+          if (resp.data?.token) {
+            this.$refs.form.reset();
+            this.$auth.setUserToken(resp.token);
+            this.$router.push("/");
+            this.$toast.success("Hush kelibsiz !!");
+            this.$store.state.logged_in = true;
+          } else {
+            this.$toast.error("Error !!");
+          }
         } catch (error) {
           console.log(error);
+          this.$toast.error("E-mail yoki parol notogri");
         }
       }
     },

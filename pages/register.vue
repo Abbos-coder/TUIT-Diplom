@@ -8,7 +8,7 @@
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
-              <v-col>
+              <v-col cols="12" lg="6" sm="6" xs="12">
                 <v-text-field
                   label="Firstname"
                   v-model="user.firstname"
@@ -17,7 +17,7 @@
                   prepend-icon="mdi-account"
                 ></v-text-field>
               </v-col>
-              <v-col>
+              <v-col cols="12" lg="6" sm="6" xs="12">
                 <v-text-field
                   label="Lastname"
                   v-model="user.lastname"
@@ -28,7 +28,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col>
+              <v-col cols="12" lg="6" sm="6" xs="12">
                 <v-text-field
                   label="Password"
                   :type="showPass ? 'text' : 'password'"
@@ -39,7 +39,7 @@
                   prepend-icon="mdi-lock"
                 ></v-text-field>
               </v-col>
-              <v-col>
+              <v-col cols="12" lg="6" sm="6" xs="12">
                 <v-text-field
                   label="Email"
                   v-model="user.email"
@@ -50,7 +50,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col>
+              <v-col cols="12" lg="6" sm="6" xs="12">
                 <v-text-field
                   label="Phone"
                   v-model="user.phone"
@@ -61,7 +61,7 @@
                   prepend-icon="mdi-phone"
                 ></v-text-field>
               </v-col>
-              <v-col>
+              <v-col cols="12" lg="6" sm="6" xs="12">
                 <v-menu
                   ref="menu"
                   v-model="menu"
@@ -118,6 +118,7 @@
 <script>
 export default {
   layout: "noNavbar",
+  middleware: false,
   data: () => ({
     valid: true,
     activePicker: null,
@@ -165,19 +166,20 @@ export default {
     async validate() {
       const validate = this.$refs.form.validate();
       if (validate) {
-        try {
-          const user = this.user;
-          await this.$axios.$post("/api/users", user, {
+        const user = this.user;
+        await this.$axios
+          .$post("/api/users", user, {
             headers: {
               "Content-Type": "application/json",
             },
+          })
+          .then((res) => {
+            this.$refs.form.reset();
+            this.$toast.error(res).goAway(5000);
+          })
+          .catch((error) => {
+            console.log(error);
           });
-          this.$router.push("/");
-        } catch (error) {
-          console.error(error);
-        }
-
-        console.log(JSON.stringify(this.user));
       } else {
         console.log("error 77777777--");
       }

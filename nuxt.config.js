@@ -55,30 +55,32 @@ export default {
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: "http://127.0.0.1:8080",
   },
+
   router: {
     middleware: ["auth"],
   },
+
   auth: {
     strategies: {
       local: {
         endpoints: {
-          login: { url: "/auth", method: "post" },
-          logout: true,
+          login: {
+            url: "/api/auth",
+            method: "post",
+            propertyName: "token",
+          },
+          logout: false,
           user: false,
         },
-        tokenRequired: true,
-        tokenType: "Bearer",
       },
     },
     redirect: {
       login: "/auth",
       logout: "/",
-      callback: "/auth",
+      callback: "/",
       home: "/",
-      user: "/",
     },
   },
 
