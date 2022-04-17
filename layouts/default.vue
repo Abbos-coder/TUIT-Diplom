@@ -29,27 +29,27 @@ html {
 }
 
 // .layout-enter-active,
-// .page-enter-active {
-//    animation: acrossIn 0.4s ease-out both;
-// }
-// .layout-leave-active,
-// .page-leave-active {
-//    animation: acrossOut 0.6s ease-in both;
-// }
-// @keyframes acrossIn {
-//    0% {
-//       transform: translate3d(100%, 0, 0);
-//    }
-//    100% {
-//       transform: translate3d(0, 0, 0);
-//    }
-// }
-// @keyframes acrossOut {
-//    0% {
-//       transform: translate3d(0, 0, 0);
-//    }
-//    100% {
-//       transform: translate3d(-100%, 0, 0);
-//    }
-// }
+.page-enter-active {
+  animation: acrossIn 0.4s ease-out both;
+}
+.layout-leave-active,
+.page-leave-active {
+  animation: acrossOut 0.6s ease-in both;
+}
+@keyframes acrossIn {
+  0% {
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes acrossOut {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
 </style>
