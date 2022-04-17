@@ -32,7 +32,7 @@
               class="user-name font-weight-medium text-body-2 ml-3"
               v-else
             >
-              Abbos
+              {{ $store.state.username }}
               <v-icon color="black" size="22" class="ml-1">
                 mdi-plus-circle-outline
               </v-icon>
