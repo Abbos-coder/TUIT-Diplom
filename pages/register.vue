@@ -118,7 +118,7 @@
 <script>
 export default {
   layout: "noNavbar",
-  middleware: false,
+  auth: false,
   data: () => ({
     valid: true,
     activePicker: null,
