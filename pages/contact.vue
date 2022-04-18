@@ -51,7 +51,7 @@
 
 <script>
 export default {
-  middleware: false,
+  auth: false,
   data: () => ({
     valid: true,
     user_msg: {

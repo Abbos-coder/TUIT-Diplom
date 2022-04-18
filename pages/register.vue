@@ -168,20 +168,18 @@ export default {
       if (validate) {
         const user = this.user;
         await this.$axios
-          .$post("/api/users", user, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
+          .$post("/api/users", user)
           .then((res) => {
-            this.$refs.form.reset();
-            this.$toast.error(res).goAway(5000);
+            this.$store.state.username = res.firstname;
+            this.$toast.success("Siz ro'yxatdan o'tdingiz !").goAway(5000);
+            this.$router.push("/auth");
           })
           .catch((error) => {
+            this.$toast.error("Mavjud bolgan e-mail").goAway(5000);
             console.log(error);
           });
       } else {
-        console.log("error 77777777--");
+        console.log("error");
       }
     },
     reset() {

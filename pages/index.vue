@@ -92,6 +92,10 @@ export default {
       });
     },
   },
+  mounted() {
+    const token = this.$auth.$storage.getCookies();
+    console.log(token);
+  },
 };
 </script>
 
