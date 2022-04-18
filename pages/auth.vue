@@ -19,6 +19,7 @@
               prepend-icon="mdi-lock"
               :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="showPass = !showPass"
+              @keypress.enter="validate"
               v-model="user.password"
               :rules="[(v) => !!v || 'This is required']"
             ></v-text-field>
@@ -59,18 +60,29 @@ export default {
       const auth = this.$refs.form.validate();
       if (auth) {
         try {
-          const resp = await this.$auth.loginWith("local", {
-            data: this.user,
+          // const resp = await this.$auth.loginWith("local", {
+          //   data: this.user,
+          // });
+          const resp = await this.$axios.post("/api/auth", this.user, {
+            headers: {
+              "Content-type": "application/json",
+            },
           });
-          if (resp.data?.token) {
-            this.$refs.form.reset();
-            this.$auth.setUserToken(resp.token);
-            this.$router.push("/");
-            this.$toast.success("Hush kelibsiz !!");
-            this.$store.state.logged_in = true;
-          } else {
-            this.$toast.error("Error !!");
-          }
+          this.$refs.form.reset();
+          const a = this.$auth.setUserToken(resp.token);
+          console.log(a, resp.token);
+          this.$router.push("/");
+          this.$toast.success("Hush kelibsiz !!");
+          this.$store.state.logged_in = true;
+          // if (resp.data?.token) {
+          //   this.$refs.form.reset();
+          //   this.$auth.setUserToken(resp.token);
+          //   this.$router.push("/");
+          //   this.$toast.success("Hush kelibsiz !!");
+          //   this.$store.state.logged_in = true;
+          // } else {
+          //   this.$toast.error("Error !!");
+          // }
         } catch (error) {
           console.log(error);
           this.$toast.error("E-mail yoki parol notogri");
