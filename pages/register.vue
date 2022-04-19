@@ -54,8 +54,10 @@
                 <v-text-field
                   label="Phone"
                   v-model="user.phone"
-                  type="number"
-                  placeholder="+998 99 403-68-28"
+                  prefix="+998"
+                  v-mask="'(##) ### ## ##'"
+                  type="text"
+                  placeholder="(99) 403-68-28"
                   :rules="phoneRules"
                   required
                   prepend-icon="mdi-phone"
@@ -159,6 +161,7 @@ export default {
       val && setTimeout(() => (this.activePicker = "YEAR"));
     },
   },
+
   methods: {
     save(date) {
       this.$refs.menu.save(date);
@@ -170,7 +173,10 @@ export default {
         await this.$axios
           .$post("/api/users", user)
           .then((res) => {
-            this.$store.state.username = res.firstname;
+            // this.$store.state.username = res.firstname;
+            const user = res;
+            user.logged_in = true;
+            localStorage.setItem("user", JSON.stringify(user));
             this.$toast.success("Siz ro'yxatdan o'tdingiz !").goAway(5000);
             this.$router.push("/auth");
           })
