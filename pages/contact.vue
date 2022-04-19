@@ -11,11 +11,14 @@
           ></v-text-field>
           <v-text-field
             label="Ваш номер"
-            type="number"
-            hide-spin-buttons
+            type="text"
             :rules="[(v) => !!v || 'Это обязательный']"
-            placeholder="+998 (99) 403-68-28"
+            placeholder="(99) 403-68-28"
             v-model="user_msg.tel"
+            return-masked-value
+            :value="user_msg.tel"
+            v-mask="'(##) ###-##-##'"
+            prefix="+998"
           ></v-text-field>
           <v-text-field
             label="Ваш e-mail"

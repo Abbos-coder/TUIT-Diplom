@@ -1,11 +1,7 @@
 <template>
   <nav class="navbar">
     <v-app-bar elevation="1" height="35" :clipped-left="clipped" app>
-      <v-row
-        class="navbar container mx-auto px-n2"
-        align="center"
-        justify="center"
-      >
+      <v-row class="navbar mx-auto px-n2" align="center" justify="center">
         <div class="navbar__block mr-2">
           <div class="navbar__phone text-caption">
             <v-icon small color="blue darken-2" class="mr-1">
@@ -23,7 +19,6 @@
             <span>UZ</span> | <span>RU</span>
           </p>
           <div class="text-caption ml-4">
-            <strong>Welcome, </strong>
             <nuxt-link to="/auth" v-if="!$store.state.logged_in">
               Sign in
             </nuxt-link>
@@ -32,11 +27,20 @@
               class="user-name font-weight-medium text-body-2 ml-3"
               v-else
             >
-              {{ $store.state.username }}
+              {{ user_name }}
               <v-icon color="black" size="22" class="ml-1">
                 mdi-plus-circle-outline
               </v-icon>
             </nuxt-link>
+            <v-btn
+              color="error"
+              x-small
+              class="mb-1 ml-4 text-capitalize"
+              v-if="!!user_name"
+              @click="logOut"
+            >
+              Log out
+            </v-btn>
           </div>
         </div>
       </v-row>
@@ -83,14 +87,32 @@
 <script>
 export default {
   data: () => ({
+    user_name: "",
     clipped: true,
   }),
   methods: {
     openSidebar() {
       this.$store.state.sidebar = !this.$store.state.sidebar;
     },
+    logOut() {
+      localStorage.removeItem("user");
+      const cookies = document.cookie.split(";");
+
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      }
+      document.cookie = "";
+      window.location.reload();
+    },
   },
-  mounted() {},
+  mounted() {
+    const user = localStorage.getItem("user");
+    const user_name = JSON.parse(user);
+    !!user ? (this.user_name = user_name.firstname) : null;
+  },
 };
 </script>
 
