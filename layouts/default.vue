@@ -15,6 +15,10 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    const user = localStorage.getItem("user");
+    user ? (this.$store.state.logged_in = true) : null;
+  },
 };
 </script>
 

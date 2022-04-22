@@ -1,6 +1,6 @@
 <template>
   <div class="container product">
-    <h1 class="text-center mb-5 text-h4 text-capitalize">стройматериали</h1>
+    <h1 class="text-center mb-12 text-h4 text-capitalize">стройматериали</h1>
     <v-row>
       <v-col
         cols="12"
@@ -17,7 +17,7 @@
           <div class="product__name">{{ product.name }}</div>
           <div class="product__price">
             {{ product.price.toLocaleString("en-US") }} <span>сум /</span>
-            <span> тонна</span>
+            <span>тонна</span>
           </div>
           <v-rating
             v-model="product.rating"
@@ -32,7 +32,7 @@
             <v-btn
               color="success"
               small
-              @click.prevent="$router.push(`/product-info/1`)"
+              @click.prevent="$router.push(`/product-info/${product._id}`)"
             >
               подробно
             </v-btn>
@@ -71,7 +71,7 @@ export default {
     const products = await $axios.$get(`http://127.0.0.1:8080/api/product`);
     return { products };
   },
-  middleware: false,
+  auth: false,
 
   data() {
     return {};
@@ -81,20 +81,13 @@ export default {
       this.$store.state.basket.push(e);
       this.$toasted.success("Product added !", {
         theme: "bubble",
-        position: "top-left",
+        position: "top-center",
         duration: 5000,
-        icon: "done",
-        action: {
-          onClick: (e, toastObject) => {
-            toastObject.goAway(0);
-          },
-        },
       });
     },
   },
   mounted() {
     const token = this.$auth.$storage.getCookies();
-    console.log(token);
   },
 };
 </script>

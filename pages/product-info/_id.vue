@@ -144,6 +144,17 @@ export default {
       });
     },
   },
+  async mounted() {
+    const params = this.$route.params.id;
+    await this.$axios
+      .$get(`/api/product/${params}`)
+      .then((res) => {
+        this.info = res;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },
 };
 </script>
 
