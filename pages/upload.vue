@@ -19,7 +19,7 @@
             :rules="[(v) => !!v || 'This is required']"
           ></v-combobox>
           <v-text-field
-            v-model="product.name"
+            v-model="product.title"
             label="Названия продукта"
             :rules="[(v) => !!v || 'This is required']"
           ></v-text-field>
@@ -114,7 +114,7 @@ export default {
     product: {
       image: "",
       category: "",
-      name: "",
+      title: "",
       price: null,
       rating: null,
       status: false,
@@ -167,9 +167,42 @@ export default {
       !!file ? (this.product.image = URL.createObjectURL(file)) : null;
     },
     validateUpload() {
-      this.$refs.form.validate();
+      const valid = this.$refs.form.validate();
+      if (valid) {
+        const get_data = localStorage.getItem("user");
+        const user = JSON.parse(get_data);
+        const user_token = user.token; // token only
+        const config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "x-auth-token": user_token,
+          },
+        };
+        let formData = new FormData();
+        formData.append("image", this.image);
+        formData.append("category", this.product.category.toLowerCase());
+        formData.append("title", this.product.title);
+        formData.append("price", this.product.price);
+        formData.append("rating", this.product.rating);
+        formData.append("status", this.product.status);
+        this.$axios
+          .$post("/api/product", formData, config)
+          .then((res) => {
+            this.$refs.form.reset();
+            this.product.image = null;
+            this.$toasted.success("Продукт добавлен", {
+              theme: "bubble",
+              position: "top-center",
+              duration: 5000,
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     },
   },
+  mounted() {},
 };
 </script>
 

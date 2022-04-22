@@ -63,26 +63,33 @@ export default {
           // const resp = await this.$auth.loginWith("local", {
           //   data: this.user,
           // });
-          const resp = await this.$axios.post("/api/auth", this.user, {
-            headers: {
-              "Content-type": "application/json",
-            },
-          });
-          this.$refs.form.reset();
-          const a = this.$auth.setUserToken(resp.token);
-          console.log(a, resp.token);
-          this.$router.push("/");
-          this.$toast.success("Hush kelibsiz !!");
-          this.$store.state.logged_in = true;
-          // if (resp.data?.token) {
-          //   this.$refs.form.reset();
-          //   this.$auth.setUserToken(resp.token);
-          //   this.$router.push("/");
-          //   this.$toast.success("Hush kelibsiz !!");
-          //   this.$store.state.logged_in = true;
-          // } else {
-          //   this.$toast.error("Error !!");
-          // }
+          const resp = await this.$axios
+            .post("/api/auth", this.user, {
+              headers: {
+                "Content-type": "application/json",
+              },
+            })
+            .then((res) => {
+              console.log(res);
+              const token = res.data.data.token;
+
+              if (token) {
+                this.$refs.form.reset();
+                localStorage.setItem("user", JSON.stringify(res.data.data));
+                this.$auth.setUserToken(token);
+                this.$router.push("/");
+                this.$toast.success("Hush kelibsiz !!");
+                this.$store.state.logged_in = true;
+              } else {
+                this.$toast.error("Error !!");
+              }
+            });
+
+          // this.$refs.form.reset();
+          // const a = this.$auth.setUserToken(resp.token);
+          // this.$router.push("/");
+          // this.$toast.success("Hush kelibsiz !!");
+          // this.$store.state.logged_in = true;
         } catch (error) {
           console.log(error);
           this.$toast.error("E-mail yoki parol notogri");

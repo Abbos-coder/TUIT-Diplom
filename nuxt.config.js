@@ -41,6 +41,9 @@ export default {
   styleResources: {
     scss: ["./assets/vars/*.scss", "./assets/abstracts/_mixin.scss"],
   },
+  loading: {
+    color: "green",
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

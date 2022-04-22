@@ -36,8 +36,8 @@
               color="error"
               x-small
               class="mb-1 ml-4 text-capitalize"
-              v-if="!!user_name"
-              @click="logOut"
+              v-if="$store.state.logged_in"
+              @click="logout"
             >
               Log out
             </v-btn>
@@ -94,24 +94,16 @@ export default {
     openSidebar() {
       this.$store.state.sidebar = !this.$store.state.sidebar;
     },
-    logOut() {
+    logout() {
+      this.$auth.logout();
       localStorage.removeItem("user");
-      const cookies = document.cookie.split(";");
-
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i];
-        const eqPos = cookie.indexOf("=");
-        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      }
-      document.cookie = "";
       window.location.reload();
     },
   },
   mounted() {
     const user = localStorage.getItem("user");
     const user_name = JSON.parse(user);
-    !!user ? (this.user_name = user_name.firstname) : null;
+    !!user ? (this.user_name = user_name.user.firstname) : null;
   },
 };
 </script>
