@@ -117,8 +117,10 @@ export default {
   mounted() {
     const user = localStorage.getItem("user");
     const user_name = JSON.parse(user);
-    console.log(user, user_name);
-    !!user ? (this.user_name = user_name.firstname) : null;
+    !!user
+      ? ((this.user_name = user_name.user.firstname),
+        (this.$store.state.logged_in = true))
+      : null;
   },
 };
 </script>

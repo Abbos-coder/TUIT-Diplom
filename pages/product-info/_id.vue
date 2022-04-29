@@ -21,7 +21,7 @@
         ></v-rating>
         <div class="text-h5">
           <span class="blue--text font-weight-medium">
-            {{ info.price.toLocaleString("en-US") }}
+            {{ info.price ? info.price.toLocaleString("en-US") : null }}
           </span>
           <span class="text-body-1">so'm / </span>
           <span class="text-body-1">tonna</span>
@@ -123,15 +123,7 @@
 <script>
 export default {
   data: () => ({
-    info: {
-      id: 1,
-      image:
-        "https://files.glotr.uz/company/000/005/189/products/2019/10/21/15716530615269-4a0296e0f440d2141ce181f59112dbbd.jpg?_=ozauc",
-      rating: 3.5,
-      name: "Арматура 35 гс А-400 д. 18",
-      price: 8717452,
-      status: true,
-    },
+    info: {},
     company_rating: 4.5,
   }),
   methods: {
@@ -143,6 +135,17 @@ export default {
         duration: 5000,
       });
     },
+  },
+  async mounted() {
+    const params = this.$route.params.id;
+    await this.$axios
+      .$get(`/api/product/${params}`)
+      .then((res) => {
+        this.info = res;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
 };
 </script>

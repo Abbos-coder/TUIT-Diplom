@@ -32,7 +32,7 @@
             <v-btn
               color="success"
               small
-              @click.prevent="$router.push(`/product-info/1`)"
+              @click.prevent="$router.push(`/product-info/${product._id}`)"
             >
               подробно
             </v-btn>
@@ -71,7 +71,7 @@ export default {
     const products = await $axios.$get(`http://127.0.0.1:8080/api/product`);
     return { products };
   },
-  middleware: false,
+  auth: false,
 
   data() {
     return {};
@@ -92,9 +92,11 @@ export default {
       });
     },
   },
-  mounted() {
-    const token = this.$auth.$storage.getCookies();
-    console.log(token);
+  async mounted() {
+    const products = await this.$axios.$get(
+      `http://127.0.0.1:8080/api/product`
+    );
+    this.products = products.reverse();
   },
 };
 </script>

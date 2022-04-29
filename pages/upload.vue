@@ -202,6 +202,9 @@ export default {
       }
     },
   },
+  mounted() {
+    // console.log("token" + this.$auth.strategy.token.get());
+  },
 };
 </script>
 

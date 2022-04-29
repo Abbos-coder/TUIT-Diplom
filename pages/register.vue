@@ -175,6 +175,7 @@ export default {
           .then((res) => {
             const user = res;
             user.logged_in = true;
+            console.log(res);
             localStorage.setItem("user", JSON.stringify(user));
             this.$toast.success("Siz ro'yxatdan o'tdingiz !").goAway(5000);
             this.$router.push("/auth");

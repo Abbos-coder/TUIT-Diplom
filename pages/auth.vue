@@ -70,7 +70,8 @@ export default {
           this.$router.push("/");
           this.$toast.success("Hush kelibsiz !!");
           this.$store.state.logged_in = true;
-          localStorage.setItem("user", JSON.stringify(resp.data.data.user));
+          const user = resp.data.data;
+          localStorage.setItem("user", JSON.stringify(user));
         } catch (error) {
           console.log(error);
           this.$toast.error("E-mail yoki parol notogri");
