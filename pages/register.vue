@@ -55,7 +55,7 @@
                   label="Phone"
                   v-model="user.phone"
                   prefix="+998"
-                  v-mask="'(##) ### ## ##'"
+                  v-mask="'(##) ###-##-##'"
                   type="text"
                   placeholder="(99) 403-68-28"
                   :rules="phoneRules"
@@ -102,12 +102,12 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn to="/auth" color="primary" class="text-capitalize"
-            >Login</v-btn
-          >
-          <v-btn color="warning" class="text-capitalize ml-auto" @click="reset"
-            >reset</v-btn
-          >
+          <v-btn to="/auth" color="primary" class="text-capitalize">
+            Login
+          </v-btn>
+          <v-btn color="warning" class="text-capitalize ml-auto" @click="reset">
+            reset
+          </v-btn>
           <v-btn color="success" class="text-capitalize" @click="validate">
             Register
           </v-btn>
@@ -173,7 +173,6 @@ export default {
         await this.$axios
           .$post("/api/users", user)
           .then((res) => {
-            // this.$store.state.username = res.firstname;
             const user = res;
             user.logged_in = true;
             localStorage.setItem("user", JSON.stringify(user));

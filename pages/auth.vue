@@ -60,29 +60,17 @@ export default {
       const auth = this.$refs.form.validate();
       if (auth) {
         try {
-          // const resp = await this.$auth.loginWith("local", {
-          //   data: this.user,
-          // });
           const resp = await this.$axios.post("/api/auth", this.user, {
             headers: {
               "Content-type": "application/json",
             },
           });
           this.$refs.form.reset();
-          const a = this.$auth.setUserToken(resp.token);
-          console.log(a, resp.token);
+          const a = this.$auth.setUserToken(resp.data.data.token);
           this.$router.push("/");
           this.$toast.success("Hush kelibsiz !!");
           this.$store.state.logged_in = true;
-          // if (resp.data?.token) {
-          //   this.$refs.form.reset();
-          //   this.$auth.setUserToken(resp.token);
-          //   this.$router.push("/");
-          //   this.$toast.success("Hush kelibsiz !!");
-          //   this.$store.state.logged_in = true;
-          // } else {
-          //   this.$toast.error("Error !!");
-          // }
+          localStorage.setItem("user", JSON.stringify(resp.data.data.user));
         } catch (error) {
           console.log(error);
           this.$toast.error("E-mail yoki parol notogri");

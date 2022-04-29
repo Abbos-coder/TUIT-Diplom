@@ -18,29 +18,39 @@
           <p class="text-body-2 mt-0 mb-0 lang">
             <span>UZ</span> | <span>RU</span>
           </p>
-          <div class="text-caption ml-4">
+          <div class="text-caption ml-4 conroller">
             <nuxt-link to="/auth" v-if="!$store.state.logged_in">
               Sign in
             </nuxt-link>
-            <nuxt-link
-              to="/upload"
-              class="user-name font-weight-medium text-body-2 ml-3"
+
+            <div
               v-else
+              class="user-name primary--text font-weight-medium text-body-2 ml-2"
+              @click="openProfile"
             >
               {{ user_name }}
-              <v-icon color="black" size="22" class="ml-1">
-                mdi-plus-circle-outline
-              </v-icon>
-            </nuxt-link>
-            <v-btn
-              color="error"
-              x-small
-              class="mb-1 ml-4 text-capitalize"
-              v-if="!!user_name"
-              @click="logOut"
-            >
-              Log out
-            </v-btn>
+              <v-icon color="primary">mdi-chevron-down</v-icon>
+              <div class="profile">
+                <nuxt-link to="/upload">
+                  <v-icon class="mr-2" size="22">
+                    mdi-plus-circle-outline
+                  </v-icon>
+                  Добавить продукт
+                </nuxt-link>
+                <nuxt-link to="/">
+                  <v-icon class="mr-2" size="22"> mdi-store </v-icon>
+                  Мои продукты
+                </nuxt-link>
+                <nuxt-link to="/">
+                  <v-icon size="22" class="mr-2">mdi-cog-outline</v-icon>
+                  Редактировать профиль
+                </nuxt-link>
+                <div @click="logOut">
+                  <v-icon class="mr-2" size="22">mdi-logout</v-icon>
+                  Выйти
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </v-row>
@@ -95,28 +105,72 @@ export default {
       this.$store.state.sidebar = !this.$store.state.sidebar;
     },
     logOut() {
+      this.$auth.logout();
       localStorage.removeItem("user");
-      const cookies = document.cookie.split(";");
-
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i];
-        const eqPos = cookie.indexOf("=");
-        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      }
-      document.cookie = "";
       window.location.reload();
+    },
+    openProfile() {
+      const profile = document.querySelector(".profile");
+      profile.classList.toggle("active");
     },
   },
   mounted() {
     const user = localStorage.getItem("user");
     const user_name = JSON.parse(user);
+    console.log(user, user_name);
     !!user ? (this.user_name = user_name.firstname) : null;
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.profile {
+  transform: translateY(50px);
+  opacity: 0;
+  visibility: hidden;
+  @include trs;
+  border: 1px solid #ccc;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  color: #333;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 10px;
+  &.active {
+    transform: translateY(0px);
+    opacity: 1;
+    visibility: visible;
+  }
+  a {
+    color: #333;
+    font-weight: 500 !important;
+    margin: 0 !important;
+    line-height: 3;
+    border-radius: 16px;
+    @include trs;
+    &:hover {
+      background: #e8e6e6;
+      padding-left: 15px;
+    }
+  }
+  div {
+    line-height: 3;
+    @include trs;
+    border-radius: 16px;
+    &:hover {
+      padding-left: 15px;
+      background: #e8e6e6;
+    }
+  }
+}
+.conroller {
+  position: relative;
+}
 .user-name {
   position: relative;
   display: inline-block;
